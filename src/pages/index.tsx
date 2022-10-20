@@ -1,7 +1,10 @@
+import { useHistory } from '@modern-js/runtime/runtime-router';
+import Button from '@/components/Button';
 import PageContainer, { TabItem } from '@/containers/PageContainer';
 import SideBarContainer, { ListItem } from '@/containers/SideBarContainer';
 
 const Index = () => {
+  const history = useHistory();
   const listItems: ListItem[] = [
     {
       self: {
@@ -34,8 +37,8 @@ const Index = () => {
           },
         },
         {
-          name: 'folder',
-          id: 'folder',
+          name: 'Folder',
+          id: 'Folder',
           onClick: () => {
             // todo
           },
@@ -46,13 +49,25 @@ const Index = () => {
   const topTabs: TabItem[] = [
     {
       name: '测试',
-      content: <SideBarContainer listItems={listItems} selectId={'folder'} />,
+      content: <SideBarContainer listItems={listItems} selectId={'Folder'} />,
     },
   ];
+  const rightContents: React.ReactNode[] = [
+    <Button
+      key="right btn"
+      name="publish curation"
+      onClick={() => {
+        history.push('publishForm');
+        // to do
+      }}
+    />,
+  ];
   return (
-    <PageContainer width={'100%'} topSidebarTabs={topTabs}>
-      <></>
-    </PageContainer>
+    <PageContainer
+      width={'100%'}
+      topSidebarTabs={topTabs}
+      rightContentItems={rightContents}
+    />
   );
 };
 

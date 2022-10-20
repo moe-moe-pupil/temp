@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { uuid } from '@/utils/uuid';
+import RightContent from '@/components/RightContent';
 
 const ProLayout = styled.div<{
   width: number | string;
@@ -66,13 +67,14 @@ export interface TabItem {
   onClick?: () => void;
 }
 
-interface PageContainerProps {
+export interface PageContainerProps {
   width: number | string;
   children?: React.ReactNode;
   offset?: number; // height subtract offset for small screen
   topSidebarTabs?: TabItem[];
   customTopSidebar?: React.ReactNode; // if this is not undefined it will replace topSidebarTabs
   contentTopOffset?: number; // content top offset from the top of popup
+  rightContentItems?: React.ReactNode[];
   onClick?: () => void;
 }
 
@@ -83,6 +85,7 @@ const PageContainer: React.FC<PageContainerProps> = ({
   customTopSidebar,
   topSidebarTabs,
   contentTopOffset = 50,
+  rightContentItems,
   onClick,
 }) => {
   const [selectTab, setSelectTab] = useState(0);
@@ -121,13 +124,18 @@ const PageContainer: React.FC<PageContainerProps> = ({
                     {tab.name}
                   </div>
                 ))}
+                {rightContentItems && (
+                  <RightContent contents={rightContentItems} />
+                )}
               </div>
               <div className="tabsContetnt">
                 {topSidebarTabs[selectTab].content}
               </div>
             </>
           )}
-      {children && <div className="ProContentLayout">{children}</div>}
+      {React.Children.count(children) > 0 && (
+        <div className="ProContentLayout">{children}</div>
+      )}
     </ProLayout>
   );
 };
