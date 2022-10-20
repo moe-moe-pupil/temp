@@ -27,20 +27,24 @@
     "dist/"
   ],
   "dependencies": {
-    "@modern-js/runtime": "1.19.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "@modern-js/runtime": "1.20.1",
+    "@types/styled-components": "^5.1.26",
+    "i18next-browser-languagedetector": "^6.1.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.18.6",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
-    "@modern-js/app-tools": "1.19.0",
-    "@modern-js/tsconfig": "1.19.0",
+    "@modern-js/app-tools": "1.20.1",
+    "@modern-js/tsconfig": "1.20.1",
+    "@types/node": "^18.11.2",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
-    "lint-staged": "^11.2.6",
-    "prettier": "^2.6.2",
-    "husky": "^8.0.0",
-    "typescript": "^4",
-    "@types/react": "^17",
-    "@types/react-dom": "^17",
-    "@types/node": "^14"
+    "typescript": "^4.8.4"
   }
 }
