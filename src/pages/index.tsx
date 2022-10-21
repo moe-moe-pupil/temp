@@ -1,11 +1,13 @@
 import { useHistory } from '@modern-js/runtime/runtime-router';
 import Button from '@/components/Button';
 import PageContainer, { TabItem } from '@/containers/PageContainer';
-import SideBarContainer, { ListItem } from '@/containers/SideBarContainer';
+import SidebarContainer, {
+  SidebarListItem,
+} from '@/containers/SidebarContainer';
 
 const Index = () => {
   const history = useHistory();
-  const listItems: ListItem[] = [
+  const sidebarListItems: SidebarListItem[] = [
     {
       self: {
         name: 'Module',
@@ -14,7 +16,7 @@ const Index = () => {
           // todo
         },
       },
-      child: [
+      children: [
         {
           name: 'home',
           id: 'home',
@@ -49,13 +51,19 @@ const Index = () => {
   const topTabs: TabItem[] = [
     {
       name: '测试',
-      content: <SideBarContainer listItems={listItems} selectId={'Folder'} />,
+      content: (
+        <SidebarContainer
+          listItems={sidebarListItems}
+          defaultSelectId={'Folder'}
+          content={<></>}
+        />
+      ),
     },
   ];
   const rightContents: React.ReactNode[] = [
     <Button
       key="right btn"
-      name="publish curation"
+      label="publish curation"
       onClick={() => {
         history.push('publishForm');
         // to do

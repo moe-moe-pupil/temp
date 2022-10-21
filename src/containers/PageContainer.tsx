@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { uuid } from '@/utils/uuid';
 import RightContent from '@/components/RightContent';
 
@@ -7,9 +8,10 @@ const ProLayout = styled.div<{
   width: number | string;
   offset: number;
   top: number;
+  fix: boolean;
 }>`
   .ProContentLayout {
-    position: fixed;
+    position: ${props => (props.fix ? 'fixed' : 'content')};
     bottom: 0;
     left: 0;
     right: 0;
@@ -68,6 +70,7 @@ export interface TabItem {
 }
 
 export interface PageContainerProps {
+  title?: string;
   width: number | string;
   children?: React.ReactNode;
   offset?: number; // height subtract offset for small screen
@@ -75,10 +78,12 @@ export interface PageContainerProps {
   customTopSidebar?: React.ReactNode; // if this is not undefined it will replace topSidebarTabs
   contentTopOffset?: number; // content top offset from the top of popup
   rightContentItems?: React.ReactNode[];
+  fix?: boolean;
   onClick?: () => void;
 }
 
 const PageContainer: React.FC<PageContainerProps> = ({
+  title,
   width,
   children,
   offset = 0,
@@ -86,21 +91,25 @@ const PageContainer: React.FC<PageContainerProps> = ({
   topSidebarTabs,
   contentTopOffset = 50,
   rightContentItems,
+  fix = true,
   onClick,
 }) => {
   const [selectTab, setSelectTab] = useState(0);
+  const { t } = useTranslation();
   return (
     <ProLayout
       width={width}
       offset={offset}
       top={contentTopOffset}
       onClick={() => onClick?.()}
+      fix={fix}
     >
       {customTopSidebar
         ? customTopSidebar
         : topSidebarTabs && (
             <>
               <div className="tabsContainer">
+                {title && <div className="titleContainer">{t(title)}</div>}
                 {topSidebarTabs.map((tab, tIdx) => (
                   <div
                     id={`tabs${tIdx}`}
